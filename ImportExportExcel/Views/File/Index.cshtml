@@ -1,0 +1,59 @@
+﻿@model List<Company>
+
+<div class="" data-interval="6000">
+    <div class="container">
+        <form method="post" asp-controller="File" asp-action="Import" enctype="multipart/form-data">
+            <input type="file" name="file" />
+            <button type="submit" class="btn btn-primary">Import from Excel</button>
+        </form>
+    </div>
+</div>
+
+@if (Model != null && Model.Any())
+{
+    <div class="table-div">
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Company</th>
+                    <th>Country</th>
+                    <th>Number of employees</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var company in Model)
+                {
+                    <tr>
+                        <td>@company.CompanyId</td>
+                        <td>@company.CompanyName</td>
+                        <td>@company.Country</td>
+                        <td>@company.NumberOfEmployees</td>
+                        <td>@company.Date</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-primary export" onclick="location.href='@Url.Action("ExportFile", "File")'">Export</button>
+    </div>
+}
+
+<style>
+    .table-div {
+        padding-top: 80px;
+    }
+
+    th, td {
+        padding-right: 50px
+    }
+
+    .btn-primary {
+        border-radius: 30px;
+    }
+
+    .export {
+        margin-top: 20px;
+    }
+</style>
